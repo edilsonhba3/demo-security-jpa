@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/head"></head>
+<body>
+	<!-- Include _menu.html -->
+	<th:block th:include="/_menu"></th:block>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>Login</h1>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col">
+				<!-- /login?error=true -->
+				<div class="alert alert-warning"
+					th:if="${#request.getParameter('error') == 'true'}"
+					style="color: red; margin: 10px 0px;">
+
+
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					Login Failed!!!<br /> Reason : <span
+						th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+						th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+						Static summary </span>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<h3>Enter user name and password:</h3>
+				<form name='f' th:action="@{/j_spring_security_check}" method='POST'>
+					<table>
+						<tr>
+							<td>User:</td>
+							<td><input class="form-control" type='text' name='username' value=''></td>
+						</tr>
+						<tr>
+							<td>Password:</td>
+							<td><input class="form-control" type='password' name='password' /></td>
+						</tr>
+						<tr>
+							<td>Remember Me?</td>
+							<td><input type="checkbox" name="remember-me" /></td>
+						</tr>
+						<tr>
+							<td><input  class="btn btn-primary" name="submit" type="submit" value="Login" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				Username/pass:
+				<ul>
+					<li>dbuser1/123</li>
+					<li>dbadmin1/123</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
